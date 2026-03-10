@@ -1,0 +1,31 @@
+# vim: ft=yaml.docker-compose
+---
+name: compose-template
+
+include:
+  - ext/docker-compose-snippets/tailscale-caddy.yaml
+  - ext/docker-compose-snippets/simple-reverse-proxy.yaml
+  - ext/docker-compose-snippets/volume-backup-schedules.yaml
+
+services:
+  compose-template:
+    image: ghcr.io/rahulsalvi/compose-template:latest
+    environment:
+      DATA_DIR: /data
+      SERVICE_PORT: 8080
+    volumes:
+      - data:/data
+    restart: unless-stopped
+    extends:
+      file: ext/docker-compose-snippets/tailscale-app-base.yaml
+      service: tailscale-app-base
+
+  backup:
+    volumes:
+      - data:/backup:ro
+    extends:
+      file: ext/docker-compose-snippets/volume-backup.yaml
+      service: aws-backup-frequent
+
+volumes:
+  data:
