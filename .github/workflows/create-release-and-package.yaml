@@ -9,6 +9,12 @@ on:
 jobs:
   create-release-and-package:
     uses: rahulsalvi/.github/.github/workflows/create-release-and-package.yaml@main
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+      artifact-metadata: write
     with:
       image_name: ${{ github.repository }}
     secrets: inherit
