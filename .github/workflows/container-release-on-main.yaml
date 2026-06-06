@@ -1,0 +1,12 @@
+---
+name: Container release on push to main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  container-release:
+    uses: rahulsalvi/.github/.github/workflows/container-release.yaml@main
+    secrets: inherit
