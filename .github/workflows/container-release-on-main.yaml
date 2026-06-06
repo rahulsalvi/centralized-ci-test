@@ -10,3 +10,9 @@ jobs:
   container-release:
     uses: rahulsalvi/.github/.github/workflows/container-release.yaml@main
     secrets: inherit
+    permissions:
+      artifact-metadata: write
+      attestations: write
+      contents: write
+      id-token: write
+      packages: write
